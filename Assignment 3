@@ -1,1 +1,81 @@
+Troy Davis 
+Chapter 3 Assignment 
+Section 3.1.11 
+1. Using the value -35, write it as an integer literal in decimal, hexadecimal, octal, and binary formats that are consistent with MASM syntax. 
+A:  Decimal: -35, Hexadecimal: FFDD, Octal:-35q, Binary:-0100011b
+2. (Yes/No) Is A5h a valid hexadecimal literal?
+A:  Yes 
+3. (Yes/No) Does the multiplication operator(*) have a higher precedence than the division operator(/) in integer expression? 
+A: No
+4. Create a single integer expression that uses all the operators from Section 3.1.2 Calculate the value of the expression. 
+A: 30 MOD(3*4)+(3-1)/2 = 20
+Section 3.2.4
+4. In the AddTwo program, which register holds the sum?
+A: EAX
+5. In the AddTwo program, which statement halts the program?
+A: INVOKE ExitProcess,0
+Section 3.3.3
+1.	What types of files are produced by the assembler?
+A: Object file 
+2.	(True/False) The linker extracts assembled procedures from the link library and inserts them in the executable program.
+A: True
+3.	(True/False) When a program’s source code is modified, it must be assembled and linked again before it can be executed with the changes.
+A: True
+4.	 Which operating system component reads and executes programs?
+A: Loader 
+Section 3.4.13
+1.	Create an uninitialized data declaration for a 16-bit signed integer
+A: SWORD
+2.	Create an uninitialized data declaration for an 8-bit unsigned integer.
+A: BYTE
+3.	Create an uninitialized data declaration for an 8-bit signed integer.
+A: SBYTE
+4.	Create an uninitialized data declaration for a 64-bit integer.
+A: WORD
+5.	Which data type can hold a 32-bit signed integer?
+A: SDWORD
+Section 3.5.5
+3.  myArray WORD 20 DUP(?)
+	ArraySize = ($-myArray)
 
+Section 3.9.1
+4. Explain why the term assembler language is not quite correct
+A: Because when saying assembler you refer to the program that translates the assembly language from source code to machine code. 
+5. Explain the difference between big endian and little endian. Also, look up the origins of this term on the web.
+A: Big endian means that data is stored big end first the little endian is data that is stored little end first. The terms were introduced by Danny Cohen in 1980 they where used to describe the two opposing factions in the nation of Lilliput.
+6. Why might you use a symbolic constant rather than an integer literal in your code?
+A: It is a lot clearer so that is legible and a lot less code duplication . 
+25. Which data directive creates a 32-bit signed integer variable?
+A: SDWORD
+Section 3.9.2
+4. That even if a number is negative that the area in memory will never be negative. Math is all addition. 
+
+7. myArray DWORD 120 DUP(?)
+
+13. myTestString BYTE 500 DUP(“TEST”)
+
+Section 3.10
+1. ExitProcess proto
+
+.data
+A DWORD 150
+B DWORD 100
+C DWORD 50
+D DWORD 40
+
+.code
+main proc
+   mov  eax,A ;eax=150
+   mov  ebx,B ; ebx=100
+   mov  ecx,C ; ecx=50
+   mov edx,D ; edx=40
+
+
+   add eax,ebx ; eax:(A+B)
+   add ecx,edx ; ecx:(C+D)
+   sub eax,ecx ; eax:(A+B)-(C+D)
+   mov A,eax ; A=(A+B)-(C+D)
+   call ExitProcess
+
+main endp
+end
