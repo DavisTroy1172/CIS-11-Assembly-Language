@@ -1,0 +1,126 @@
+Troy Davis 
+Assignment 4
+Section 4.2.8
+1.	Write an instruction that increments val2.
+A: inc val2
+2.	Write an instruction that subtracts val3 from EAX.
+          A: sub eax,val3 
+3.	Write instructions that subtract val4 from val2           
+A: mov ax,val4
+    Sub val2,ax
+4.	 If val2 is incremented by 1 using the ADD instruction, what will be the values of the Carry and Sign flags?   
+A:   CF=0, SF=1
+5.	    If val4 is incremented by 1 using the ADD instruction, what will be the values of the Overflow and Sign flags?
+A: OF= 1, SF=1
+6.	  Where indicated, write down the values of the Carry,Sign,Zero, and Overflow flags after each instruction has executed.
+A: A. CF=1,SF=0,ZF=1,OF=0
+      B. CF=0,SF=1,ZF=0,OF=1
+      C. CF=0,SF=1,ZF=0,OF=0
+
+Section 4.3.8
+1.(True/False): The OFFSET operator always returns a 16-bit value.
+A: False
+2. (True/False): The PTR operator returns the 32-bit address of a variable.
+A: False
+3.(True/False): The TYPE operator returns a value of 4 for doubleword operands.
+A: True
+4.(True/False): The LENGTHOF operator returns the number of bytes in an operand.
+A: False
+5.(True/False): The SIZEOF operator returns the number of bytes in an operand.
+A: True
+Section 4.4.5
+4.(True/False): The following is an indexed operand: array[esi]
+A: True
+5. Fill in the requested register values on the right side of the following instruction sequence:
+A: A. 10h b. 40h c. 003Bh d. 3 e. 3 f. 2
+Section 4.10
+7.  
+.data
+09	msg    BYTE   "This is the source string",0
+10	target BYTE SIZEOF source DUP (‘#’)
+11	 
+12	 
+13	.code
+14	main PROC
+15	 
+16	mov  edx,OFFSET msg
+17	    call WriteString
+18	    call Crlf                       ; print\r\n
+19	 
+20	 
+21	mov ecx, LENGTHOF msg                ;initialize loop counter                                              
+22	mov esi, OFFSET msg                  ;esi starting address of string          
+23	mov edi, OFFSET msg                                               
+24	dec edi                          
+25	 
+26	END_STRING:
+27	inc edi
+28	mov al,[edi]
+29	cmp al,0                             ;find zero byte
+30	jnz END_STRING                       ;jump back to END_STRING if al is not 0
+31	 
+32	dec edi                              ;edi points to end of string
+33	shr ecx, 1                           ;ecx is  loop count (shift one = length/2)
+34	  
+35	 
+36	L1:
+37	 mov bl, [esi]                      ;load characters
+38	 mov al, [edi]
+39	 mov [esi], al                      ;swap characters
+40	 mov [edi], bl
+41	 inc esi                            ;update forward pointer by 1
+42	 dec edi                            ;decrement backward pointer by 1
+43	                    
+44	                                     
+45	 loop L1                            ;and loop
+46	 
+47	 ; display the string
+48	 
+49	    mov  edx,OFFSET msg
+50	    call WriteString
+51	    call Crlf                    ; print\r\n
+52	 
+53	 
+54	;Use nested loops to reverse word for word
+55	 
+56	mov ecx, LENGTHOF msg               ;set outer loop count ecx= entire length
+57	mov esi, OFFSET msg                 ;esi points to start of string
+58	mov edi, OFFSET msg
+59	dec edi
+60	 
+61	mov ecxbkp, ecx                     ;save outer loop count
+62	 
+63	L2:                                 ; go through beginning to end of string copy space character for length
+64	 
+65	inc edi
+66	mov al, [edi]                       ;move edi address into al register
+67	cmp al, ' '                         ;find space character
+68	loop L2
+69	 
+70	mov ecx, 16                         ;modify inner loop count (length/2) (for swap)
+71	dec edi
+72	 
+73	L3:                                 ; reverse/swap word for word
+74	 mov bl,[esi]              
+75	 mov al,[edi]                       ;load words
+76	 mov [esi], al
+77	 mov [edi],bl                       ;swap words
+78	 inc esi                            ;update forward pointer by 1
+79	 dec edi                            ;decrement backward pointer by 1
+80	 
+81	 loop L3                            ;and loop
+82	     
+83	 mov ecxbkp, ecx                    ;restore outer loop count
+84	 
+85	 ; display the string
+86	 
+87	    mov  edx,OFFSET msg
+88	    call WriteString
+89	    call Crlf                       ; print\r\n
+90	 
+91	exit
+92	main ENDP
+93	 
+94	END main
+
+
