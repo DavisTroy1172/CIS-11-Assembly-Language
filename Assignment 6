@@ -1,0 +1,161 @@
+ INCLUDE Irvine64.inc
+ exitProcess Proto
+ WriteString Proto
+ ReadString Proto
+ Crlf Proto
+ Clrscr Proto
+ ReadChar Proto
+.data
+msgMenu BYTE "Boolean Calculator",0
+BYTE "1. X AND Y",0
+BYTE "2. X OR Y",0
+BYTE " 3. X NOT Y",0
+BYTE " 4. X XOR Y",0
+BYTE " 5. Exit Program.",0
+msgAND BYTE "Boolean AND",0
+msgOR BYTE " Boolean OR",0
+msgNOT BYTE "Boolean NOT",0
+msgXOR BYTE "Boolean XOR",0
+
+msgInterger1 BYTE " Enter the first 64-bit hexadecimal integer: ",0
+msgInteger2 BYTE " Enter the second 64-bit hexadecimal integer: ",0
+msgResult BYTE" The 64-buit hexadecimal result is:  ",0
+caseTable BYTE '1'
+DWORD AND_op 
+EntrySize = ($- caseTable)
+BYTE '2'
+DWORD OR_op
+BYTE'3'
+DWORD NOT_op
+BYTE '4'
+DWORD XOR_op
+BYTE '5'
+DWORD ExitProgram
+numberOfEntries = ($- caseTable)/EntrySize
+.code 
+main PROC
+call Clrscr
+Menu:
+mov rdx, OFFSET msgMenu
+call WriteString
+call Crlf
+L1:
+call ReadChar
+cmp dl,'5'
+jp L1
+cmp dl, '1'
+jb L1
+call Crlf
+call ChooseProcedure
+jc quit
+call Crlf
+jmp Menu
+call exitProcess
+main ENDP
+
+
+ChooseProcedure PROC
+push rbx
+push rcx
+mov rbx, OFFSET caseTable
+mov rcx, NumberofEntries
+L1:
+movzx r9, BYTE PTR[rbx + 1]
+cmp r8,r9
+jne L2
+call NEAR PTR [rbx+1]
+call WriteString
+call Crlf
+jmp L3
+L2:
+add rbx, EntrySize
+loop L1
+L3:
+pop rcx
+pop rbx
+ret
+ChooseProcedure ENDP
+
+
+AND_op PROC
+pushad
+mov rbx, OFFSET msgAND
+call WriteString
+call Crlf
+call Crlf
+mov rdx,OFFSET msgInteger1
+call WriteString
+call ReadHex
+mov rdx,rax
+mov rdx, OFFSET msgInteger2
+call WriteString
+call ReadHex
+and rax,rbx
+mov rdx, OFFSET msgResult
+call WritreString
+call WriteHex
+call Crlf
+popad
+ret
+AND_op ENDP
+
+
+OR_op PROC
+pushad
+mov rdx,OFFSET msgOR
+call WriteString
+call Crlf
+call Crlf
+mov rdx,OFFSET msgInteger1
+call WriteString
+call ReadHex
+mov rbx,rax
+mov rdx,OFFSET msgInteger2
+call WriteString
+call ReadHex
+or rax,rbx
+mov rdx, OFFSET msgResult
+call WriteString
+call WriteHex
+call Crlf
+popad
+ret
+OR_op ENDP
+
+
+NOT_op PROC
+pushad
+mov rdx, OFFSET msgNOT
+call WriteString
+call Crlf
+call Crlf
+mov rdx,OFFSET msgInteger1
+call WriteString
+call WriteHex
+call Crlf
+popad
+ret
+NOT_op ENDP
+
+
+
+XOR_op PROC
+pushad
+mov rdx, OFFSET msgXOR
+call WriteString
+call Crlf
+call Crlf
+mov rdx,OFFSET msgInteger1
+call WriteString
+call ReadHex
+call Crlf
+popad
+ret
+XOR_op ENDP
+
+
+ExitProgram Proc
+stc
+ret
+ExitProgram ENDP
+END main
