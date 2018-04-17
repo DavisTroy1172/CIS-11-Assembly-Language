@@ -1,0 +1,10 @@
+Troy Davis 
+Assignment 9
+Cis 11
+1.	The stack frame is also called activation record and it is a collection of all data on the stack that is apart of a subprogram call. The stack frame usually includes a return address, argument variables passed on the stack, any local variables, and any saved copies of any registers that have been modified by the subprogram that need to be restored.
+2.	Calling conventions are standardized way for functions to be used by the machine. It specifies the method that the complier sets up to access any subroutine.
+3.	Because you have the complier save the register of epb which is the starting point of the code then with using mov ebp,esp it has the complier return to that register which is whatever was placed in the register at the beginning usually it would be a zero. You are able to use the mov function instead of the return function. 
+4.	Push rpb and mov rbp,rsp
+5.	In the Microsoft x64 bit calling convention is used on windows and pre-boot UEFI. It also make the caller responsible to allocate 32 bytes of “shadow space” on the stack right before calling a functions and also to pop the stack after the call. System V AMD64 ABI is used on Solaris, Linux, FreeBSD, and macOS. For certain registers the caller must restore the registers original values before returning control to the caller. System V does not provide shadow space.
+6.	The first 4 parameters RCX,RDX,R8,R9 and others passed on stack. 
+7.	Registers EAX,ECX, and EDX are used for the function and the return values are stored in the EAX registers. 
