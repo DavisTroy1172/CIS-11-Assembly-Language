@@ -16,7 +16,7 @@ finalArray QWORD 4 DUP(0)
  mov, rax, rsi
  mul r15
   mov rdi, rax
- mov rax, finalArray[rax]
+ mov rax, myArray[rax]
   call WriteInt64
  LOOP LOOP
  POOPLOOP:
@@ -32,7 +32,15 @@ finalArray QWORD 4 DUP(0)
 EndLoop:
  inc rsi
  LOOP POOPLOOP
- 
+ mov r15, 8
+ mov rcx,4
+  mov rsi, 0
+  LOOP:
+ mov, rax, rsi
+ mul r15
+  mov rdi, rax
+ mov rax, finalArray[rax]
+  call WriteInt64
 
  call ExitProcess
 main endp
