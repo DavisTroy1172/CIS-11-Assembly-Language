@@ -1,4 +1,4 @@
-exitProcess proto
+ExitProcess proto
  WriteInt64 proto
  Crlf proto
 .data
@@ -38,14 +38,14 @@ LOOP SWAPLOOP
 mov rcx, 6
  mov rbx,0
   mov r12,8
- STARTLOOP: 
+ STARTLOOP2: 
  mov rax,rbx
  mul r12
  mov r11, rax
  mov rax, myArray[r11]
 CALL WriteInt64
  INC rbx
-LOOP STARTLOOP
+LOOP STARTLOOP2
 
 call ExitProcess
 main endp
