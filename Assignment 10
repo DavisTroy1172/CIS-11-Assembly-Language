@@ -14,7 +14,7 @@ myArray QWORD 1d,2d,3d,4d,5d,6d
  mov r11, rax
  mov rax, myArray[r11]
 CALL WriteInt64
- INC rdx
+ INC rbx
 LOOP STARTLOOP
 Call Crlf
  mov rcx, 3
@@ -35,8 +35,17 @@ Call Crlf
  mov myArray[r11],rbp
    add rbx, 2
 LOOP SWAPLOOP
-
- 
+mov rcx, 6
+ mov rbx,0
+  mov r12,8
+ STARTLOOP: 
+ mov rax,rbx
+ mul r12
+ mov r11, rax
+ mov rax, myArray[r11]
+CALL WriteInt64
+ INC rbx
+LOOP STARTLOOP
 
 call ExitProcess
 main endp
