@@ -1,4 +1,4 @@
- ExitProcess proto
+ExitProcess proto
 .data
 myArray QWORD 10d,20d,30d,40d
 finalArray QWORD 4 DUP(0)
@@ -8,9 +8,17 @@ finalArray QWORD 4 DUP(0)
  main proc
  
  mov rcx, 4
- mov rsi, 0
+
  mov r15, 8
- 
+ mov rcx,4
+  mov rsi, 0
+  LOOP:
+ mov, rax, rsi
+ mul r15
+  mov rdi, rax
+ mov rax, finalArray[rax]
+  call WriteInt64
+ LOOP LOOP
  POOPLOOP:
  mov rax, rsi
  mul  8
