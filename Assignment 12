@@ -1,0 +1,31 @@
+ ExitProcess proto
+.data
+myArray QWORD 10d,20d,30d,40d
+finalArray QWORD 4 DUP(0)
+ 
+ .code
+
+ main proc
+ 
+ mov rcx, 4
+ mov rsi, 0
+ mov r15, 8
+ 
+ POOPLOOP:
+ mov rax, rsi
+ mul  8
+ mov rdx, myArray[rax] 
+ cmp rsi, 3
+ je HandleLast
+ mov finalArray[rax + 8], rdx
+ jmp EndLoop
+ HandleLast:
+ mov finalArray[0], rdx
+EndLoop:
+ inc rsi
+ LOOP POOPLOOP
+ 
+
+ call ExitProcess
+main endp
+end
