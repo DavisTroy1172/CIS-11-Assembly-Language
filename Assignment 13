@@ -1,0 +1,66 @@
+writeInt64 proto
+ExitProcess proto
+Crlf proto
+
+.data
+myArray QWORD 10,6,7,5,4,3,3,2,2,1
+.code
+main proc
+mov r9, TYPE myArray
+
+mov r12, 0
+mov rcx, LENGTHOF myArray
+mov rsi, 0
+
+PRINTLOOP1:
+mov rax, rsi
+mul r9
+mov rax, myArray[r12]
+call WriteInt64
+inc rsi
+LOOP PRINTLOOP1
+
+call crlf
+mov rcx, LENGTHOF myArray
+OUTERLOOP:
+push rcx
+mov rcx, LENGTHOF myArray - 1
+mov rsi, 0
+INNERLOOP:
+	mov rdx, rsi
+	inc rdx
+	mov r10, myArray[rsi*8]
+	mov r11, myArray[rsi*8]
+	cmp r10, r11
+	jle ENDLOOP
+
+;SWAP
+mov myArray[rsi*8], r11
+mov myArray[rdx*8], r10
+
+ENDLOOP:
+inc rsi
+LOOP INNERLOOP
+call Crlf
+mov rcx, LENGTHOF myArray
+LOOP OUTERLOOP
+
+
+
+mov rcx, LENGTHOF myArray
+mov rsi, 0
+
+PRINTLOOP2:
+mov rax, rsi
+mul r9
+mov rax, myArray[rax]
+call WriteInt64
+inc rsi
+LOOP PRINTLOOP2
+call Crlf
+pop rcx
+
+EXIT:
+call ExitProcess
+main endp
+end
